@@ -38,7 +38,7 @@ def save_table(df, filename: str) -> Path:
 def main() -> int:
     ensure_dirs()
 
-    # 1) Check processed CSV exists
+    # Check processed CSV exists
     if not PROCESSED_CSV.exists():
         print(f"[ERROR] Missing processed dataset: {PROCESSED_CSV}")
         print("Run: python scripts/get_data.py")
@@ -65,12 +65,12 @@ def main() -> int:
         except Exception:
             pass
 
-    # 5) Save tables
+    # Save tables
     for fname, tdf in out.get("tables", {}).items():
         p = save_table(tdf, fname)
         print(f"[TAB] {p}")
 
-    print("\n✅ Done. Outputs saved to:")
+    print("Done. Outputs saved to:")
     print(f"   - {FIG_DIR}")
     print(f"   - {TAB_DIR}")
     return 0

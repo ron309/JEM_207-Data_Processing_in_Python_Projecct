@@ -830,54 +830,7 @@ def plot_trade_by_product(annual_val_piv: pd.DataFrame, product: str, start_year
     return fig
 
 
-
-# 2) LNG quantity approximation (netWgt)
-
-def compute_global_lng_qty(df: pd.DataFrame) -> pd.DataFrame:
-    df_lng = df[
-        (df["product"] == "LNG (271111)") &
-        (df["netWgt"].notna()) &
-        (df["netWgt"] > 0)
-    ].copy()
-
-    if "isNetWgtEstimated" in df_lng.columns:
-        df_lng = df_lng[df_lng["isNetWgtEstimated"] == False].copy()  # noqa: E712
-
-    lng_reporter_year = (
-        df_lng.groupby(["refYear", "flow", "reporterCode", "reporter"], as_index=False)
-              .agg(netWgt_kg=("netWgt", "mean"))
-    )
-
-    global_lng_qty = (
-        lng_reporter_year.groupby(["refYear", "flow"], as_index=False)
-                         .agg(global_netWgt_kg=("netWgt_kg", "sum"))
-    )
-
-    global_lng_qty_piv = (
-        global_lng_qty.pivot_table(
-            index="refYear",
-            columns="flow",
-            values="global_netWgt_kg",
-            fill_value=0
-        )
-        .reset_index()
-    )
-    return global_lng_qty_piv
-
-
-def plot_global_lng_qty(global_lng_qty_piv: pd.DataFrame, figsize=(10, 4)):
-    fig, ax = plt.subplots(figsize=figsize)
-    ax.plot(global_lng_qty_piv["refYear"], global_lng_qty_piv.get("Import", 0), label="Import (kg)")
-    ax.plot(global_lng_qty_piv["refYear"], global_lng_qty_piv.get("Export", 0), label="Export (kg)")
-    ax.set_title("Global LNG Trade Quantity (Reporter-Level Approximation)")
-    ax.set_xlabel("Year")
-    ax.set_ylabel("kg")
-    ax.legend()
-    fig.tight_layout()
-    return fig
-
-
-# 3) Continent mapping + continental analysis
+# 2) Continent mapping + continental analysis
 
 def build_default_continent_map() -> dict[int, str]:
     Africa = [12, 24, 72, 108, 120, 132, 148, 178, 180, 204, 231, 262, 266, 270, 288,
@@ -970,7 +923,7 @@ def plot_continent_shares_grid(annual_cont: pd.DataFrame, flows, products, figsi
     return fig
 
 
-# 4) Country-level analysis
+# 3) Country-level analysis
 
 def compute_annual_country(df: pd.DataFrame) -> pd.DataFrame:
     return (
@@ -1057,7 +1010,7 @@ def plot_same_countries_import_export(annual_country: pd.DataFrame, product: str
     return fig
 
 
-# 5) Seasonality (monthly imports)
+# 4) Seasonality (monthly imports)
 
 def prepare_monthly_imports(df: pd.DataFrame, value_col="primaryValue") -> pd.DataFrame:
     out = df.copy()
@@ -1153,7 +1106,7 @@ def plot_seasonal_profile(profile_df: pd.DataFrame, title: str, figsize=(10, 4))
 
 
 
-# 6) Regime analysis + scenarios
+# 5) Regime analysis + scenarios
 
 def assign_regime(year: int):
     if 2010 <= year <= 2019:
@@ -1369,11 +1322,6 @@ def run_analysis_bundle(df: pd.DataFrame) -> dict:
         figures[f"global_trade_value_{safe_filename_key(prod)}.png"] = plot_trade_by_product(
             annual_val_piv, product=prod, start_year=2010
         )
-
-    #  LNG quantity approximation
-    global_lng_qty_piv = compute_global_lng_qty(df)
-    tables["global_lng_quantity_reporter_approx.csv"] = global_lng_qty_piv
-    figures["global_lng_quantity_reporter_approx.png"] = plot_global_lng_qty(global_lng_qty_piv)
 
     #  Continent analysis
     reporter_to_continent = build_default_continent_map()
