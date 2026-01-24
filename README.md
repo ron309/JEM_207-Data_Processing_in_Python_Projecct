@@ -145,7 +145,7 @@ All structural, network, and regime analysis relies primarily on trade values, n
   - Australia
   - Nigeria
 - Re-exports are negligible.
-- Export dominance remains concentrated:
+- Import dominance remains concentrated:
   - China
   - Japan 
   - Republic of Korea
