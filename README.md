@@ -188,7 +188,7 @@ All structural, network, and regime analysis relies primarily on trade values, n
 
 ### Diagnostic Time-Series Validation
 
-A seasonal naïve benchmark is used:
+A seasonal naive benchmark is used:
 - Prediction equals the same month in the previous year
 
 **Results**
