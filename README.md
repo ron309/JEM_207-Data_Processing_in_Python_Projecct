@@ -32,6 +32,19 @@ Together, these perspectives assess whether post-2022 developments represent a t
 
 ## Data Description and Preparation
 
+
+### Raw Data Handling
+
+The original raw data is retrieved directly from the UN Comtrade API using an authenticated API key.
+Due to the size of the dataset (2000–2025 global trade) and long download times (≈60–70 minutes),
+the raw API output is not stored in the repository.
+
+Instead, the project includes:
+- the complete data ingestion script (`src/get_data.py`), and
+- a cleaned and processed dataset (`data/processed/comtrade_natural_gas_clean.csv`) used for analysis.
+
+This approach preserves full reproducibility while avoiding unnecessary storage of large files.
+
 ### Data Source
 - UN Comtrade
 - Time period: 2010–2024
