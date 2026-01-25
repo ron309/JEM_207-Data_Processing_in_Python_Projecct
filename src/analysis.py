@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
+from pathlib import Path
 
 
 # Small helpers
@@ -54,6 +55,7 @@ def add_table(tables: dict, filename: str, df: pd.DataFrame) -> None:
         raise KeyError(f"Duplicate table key: {filename}")
     tables[filename] = df
 
+
 def add_figure(figures: dict, filename: str, fig) -> None:
     """
     Essentially the sam, but for figures
@@ -61,6 +63,7 @@ def add_figure(figures: dict, filename: str, fig) -> None:
     if filename in figures:
         raise KeyError(f"Duplicate figure key: {filename}")
     figures[filename] = fig
+
 
 # Annual trade (global)
 
@@ -880,3 +883,44 @@ def run_analysis_bundle(df: pd.DataFrame) -> dict:
 
     return {"tables": tables, "figures": figures}
 
+
+
+def save_analysis_outputs(results: dict, tables_dir: str | Path, figures_dir: str | Path, figure_dpi: int = 200,) -> None:
+    """
+    Saves all tables and figures produced by run_analysis_bundle() and
+    safely closes all matplotlib figures to prevent memory leaks.
+
+    Parameters
+    ----------
+    results : dict
+        Output of run_analysis_bundle()
+    tables_dir : str or Path
+        Directory where CSV tables will be written
+    figures_dir : str or Path
+        Directory where figures will be written
+    figure_dpi : int
+        DPI for saved figures
+    """
+    tables_dir = Path(tables_dir)
+    figures_dir = Path(figures_dir)
+
+    tables_dir.mkdir(parents=True, exist_ok=True)
+    figures_dir.mkdir(parents=True, exist_ok=True)
+
+    # Save tables
+    for name, df in results.get("tables", {}).items():
+        df.to_csv(tables_dir / name, index=False)
+
+    # Save figures and CLOSE them
+    for name, fig in results.get("figures", {}).items():
+        fig.savefig(figures_dir / name, dpi=figure_dpi, bbox_inches="tight")
+        plt.close(fig)
+
+
+def close_figures(figures: dict[str, plt.Figure]) -> None:
+    """
+    Closes all matplotlib figures in a dictionary.
+    Useful if figures are generated but not saved.
+    """
+    for fig in figures.values():
+        plt.close(fig)
