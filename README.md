@@ -29,18 +29,18 @@ Install dependencies:
 
 The full analysis is executed via main.py.
 
--- Loads the processed dataset
--- Runs all analysis bundles
--- Stores all tables and figures once
+- Loads the processed dataset
+- Runs all analysis bundles
+- Stores all tables and figures once
 
 Run:
 
--- python main.py
+- python main.py
 
 Outputs are saved to:
 
--- data/processed/figures/
--- data/processed/tables/
+- data/processed/figures/
+- data/processed/tables/
 
 No API key is required for this step.
 
@@ -48,7 +48,7 @@ No API key is required for this step.
 
 To reproduce the processed dataset from raw UN Comtrade data, run:
 
--- python -m src.get_data
+- python -m src.get_data
 
 This step:
 
@@ -61,11 +61,11 @@ This step:
 
 After this step, rerun the analysis using:
 
--- python main.py
+- python main.py
 
 If the command above does not work, use:
 
--- python src/get_data.py
+- python src/get_data.py
 
 Notes
 
