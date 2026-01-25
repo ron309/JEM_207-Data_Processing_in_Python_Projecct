@@ -74,7 +74,7 @@ Extensive preprocessing was required:
   - LNG quantities are usable only at aggregated reporter–year level
 
 **Conclusion:**  
-All structural, network, and regime analysis relies primarily on trade values, not physical quantities. Additionlly, more emphasis was given on imports 
+All structural, network, and regime analysis relies primarily on trade values, not physical quantities. Additionlly, more emphasis was given on imports, since imports are recorded more accurately since imports generate tariff revenues while exports don't (https://wits.worldbank.org/wits/wits/witshelp/content/data_retrieval/T/Intro/B2.Imports_Exports_and_Mirror.htm)
 
 ---
 
