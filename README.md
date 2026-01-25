@@ -23,7 +23,7 @@ Together, these perspectives assess whether post-2022 developments represent a t
 ### 1. Set up the environment
 Install dependencies:
 
--- pip install -r requirements.txt
+- pip install -r requirements.txt
 
 ### 2. Run the full analysis (recommended)
 
