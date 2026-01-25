@@ -18,6 +18,59 @@ The project integrates two analysis components:
 Together, these perspectives assess whether post-2022 developments represent a temporary shock or a structural regime shift in global natural gas trade.
 
 ---
+## How to run
+
+### 1. Set up the environment
+Install dependencies:
+
+-- pip install -r requirements.txt
+
+### 2. Run the full analysis (recommended)
+
+The full analysis is executed via main.py.
+
+-- Loads the processed dataset
+-- Runs all analysis bundles
+-- Stores all tables and figures once
+
+Run:
+
+-- python main.py
+
+Outputs are saved to:
+
+-- data/processed/figures/
+-- data/processed/tables/
+
+No API key is required for this step.
+
+### 3. Download and rebuild the dataset (iF REQUIRED)
+
+To reproduce the processed dataset from raw UN Comtrade data, run:
+
+-- python -m src.get_data
+
+This step:
+
+- Downloads raw global trade data (2010–2025) from UN Comtrade
+- Requires a valid UN Comtrade API key
+- Takes approximately 60–70 minutes
+- Writes the cleaned dataset to:
+
+- data/processed/comtrade_natural_gas_clean.csv
+
+After this step, rerun the analysis using:
+
+-- python main.py
+
+If the command above does not work, use:
+
+-- python src/get_data.py
+
+Notes
+
+- Raw UN Comtrade files are not stored in the repository due to size constraints
+- Full reproducibility is preserved via the ingestion script and analysis pipeline
 
 ## Core Questions
 
