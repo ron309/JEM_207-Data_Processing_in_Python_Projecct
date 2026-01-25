@@ -75,7 +75,7 @@ Notes
 Running `main.py` generates a complete and reproducible set of tables and figures.
 Each output corresponds to a specific analytical question addressed in the project.
 
-The results are organized into the following thematic groups:
+The results are organized into the following groups:
 
 ### 1. Global Trade Evolution
 Files prefixed with:
@@ -129,8 +129,43 @@ Files prefixed with:
 - `winter_stress_*.png`
 - `diversification_*.png`
 
-These results simulate stress and diversification scenarios under different
-economic regimes to assess system resilience and adaptability.
+---
+
+### 6. Discrepancies Investigation
+Files prefixed with:
+- `network_discrepancies_*.csv`
+- `network_problematic_*.csv`
+
+---
+
+### 7. Prices Evolution
+Files prefixed with:
+- `network_evolution_*.png`
+- `network_prices_*.png`
+- `network_saldo_*.png`
+- `network_transport_route_price_*.png`
+- `network_{country_name}_trade_*.png`
+
+---
+
+### 9. Transport Routes
+Files prefixed with:
+- `network_top_all_time_routes_*.csv`
+- `network_top_yearly_trade_routes_*.csv`
+
+---
+### 10. Network Metrics
+Files prefixed with:
+- `network_{metric_name}_all_year_evol.png`
+- `network_network_metrics_*.csv`
+- `network_corr_between_*.csv`
+
+---
+### 11. Network Centralities and Graphs
+Files prefixed with:
+- `network_top_centralities_*.csv`
+- `network_graph_*.png`
+
 
 ## Core Questions
 
