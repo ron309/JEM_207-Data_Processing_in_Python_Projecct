@@ -72,6 +72,68 @@ Notes
 - Raw UN Comtrade files are not stored in the repository due to size constraints
 - Full reproducibility is preserved via the ingestion script and analysis pipeline
 
+## Results and Outputs Guide
+
+Running `main.py` generates a complete and reproducible set of tables and figures.
+Each output corresponds to a specific analytical question addressed in the project.
+
+The results are organized into the following thematic groups:
+
+### 1. Global Trade Evolution
+Files prefixed with:
+- `global_trade_value_*.png`
+- `annual_trade_global_by_product.csv`
+
+These outputs show long-term import and export dynamics for LNG and pipeline gas,
+highlighting trend growth and the structural break observed after 2022.
+
+---
+
+### 2. Continental and Geographic Reallocation
+Files prefixed with:
+- `continental_imports_*.png`
+- `continental_exports_*.png`
+- `continent_shares_*.png`
+- `annual_continent_trade.csv`
+
+These results analyze how global trade flows are redistributed across continents,
+with particular focus on Europe’s post-2022 LNG reallocation.
+
+---
+
+### 3. Country-Level Dominance
+Files prefixed with:
+- `top_countries_import_export_*.png`
+- `same_countries_import_export_*.png`
+- `annual_country_trade.csv`
+
+These figures identify dominant importing and exporting countries and track
+how their relative positions changed before and after the energy crisis.
+
+---
+
+### 4. Seasonality and Structural Change
+Files prefixed with:
+- `seasonality_heatmap_*.png`
+- `seasonal_profile_*.png`
+- `winter_vs_nonwinter_*.png`
+- `monthly_imports_*.csv`
+
+These outputs examine whether historical seasonal patterns persist or
+break down after 2022, distinguishing LNG flexibility from pipeline rigidity.
+
+---
+
+### 5. Regime and Scenario Analysis
+Files prefixed with:
+- `regime_levels_*.png`
+- `baseline_seasonal_profile_*.csv`
+- `winter_stress_*.png`
+- `diversification_*.png`
+
+These results simulate stress and diversification scenarios under different
+economic regimes to assess system resilience and adaptability.
+
 ## Core Questions
 
 - How did global natural gas trade evolve before and after 2022?
