@@ -55,9 +55,7 @@ This step:
 - Downloads raw global trade data (2010–2025) from UN Comtrade
 - Requires a valid UN Comtrade API key
 - Takes approximately 60–70 minutes
-- Writes the cleaned dataset to:
-
-- data/processed/comtrade_natural_gas_clean.csv
+-   Writes the cleaned dataset to - data/processed/comtrade_natural_gas_clean.csv:
 
 After this step, rerun the analysis using:
 
