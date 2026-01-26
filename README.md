@@ -303,9 +303,9 @@ All structural, network, and regime analysis relies primarily on trade values, n
 - Strong importer–exporter asymmetry exists.
 - Europe emerges as a major LNG importer.
 - Export dominance remains concentrated:
-  - United States
+  - Russian Federation
   - Australia
-  - Nigeria
+  - Qatar
 - Re-exports are negligible.
 - Import dominance remains concentrated:
   - China
