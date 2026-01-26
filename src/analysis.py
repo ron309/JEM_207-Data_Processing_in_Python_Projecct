@@ -8,6 +8,29 @@ from matplotlib.ticker import FuncFormatter
 from pathlib import Path
 
 
+
+NON_COUNTRIES = {
+    "World",
+    "Areas, not elsewhere specified",
+    "Special Categories",
+    "Free Zones"
+}
+
+def filter_real_countries(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Removes non-country aggregate placeholders from reporter and partner columns.
+    Used ONLY at analysis stage.
+    """
+    out = df.copy()
+
+    if "reporter" in out.columns:
+        out = out[~out["reporter"].isin(NON_COUNTRIES)]
+
+    if "partner" in out.columns:
+        out = out[~out["partner"].isin(NON_COUNTRIES)]
+
+    return out
+
 # Small helpers
 
 def safe_filename_key(s: str) -> str:
@@ -43,6 +66,9 @@ def format_axis_billions(ax, axis="y", label=None, decimals=0):
         ax.xaxis.get_offset_text().set_visible(False)
         if label is not None:
             ax.set_xlabel(label)
+
+
+
 
 
 # To ensure unique storing of results
@@ -230,6 +256,20 @@ def compute_annual_country(df: pd.DataFrame) -> pd.DataFrame:
         df.groupby(["refYear", "product", "flow", "reporterCode", "reporter"], as_index=False)
           .agg(value_usd=("primaryValue", "sum"))
     )
+
+def compute_mirror_exports(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Mirror exports = partner-reported imports grouped by partner (exporter).
+    Fixes exporter non-reporting (e.g., Russia).
+    """
+    mirror = (
+        df[df["flow"] == "Import"]
+        .groupby(["refYear", "product", "partnerCode", "partner"], as_index=False)
+        .agg(value_usd=("primaryValue", "sum"))
+        .rename(columns={"partnerCode": "reporterCode", "partner": "reporter"})
+    )
+    mirror["flow"] = "Export"
+    return mirror
 
 
 def top_countries(annual_country: pd.DataFrame, year: int, product: str, flow: str, n=20) -> pd.DataFrame:
@@ -727,8 +767,19 @@ def run_analysis_bundle(df: pd.DataFrame) -> dict:
     )
 
     #  Country level
-    annual_country = compute_annual_country(df_cont)
+    #  Country level (Imports = reporter-reported, Exports = mirror exports)
+    annual_country_reported = compute_annual_country(df_cont)
+
+    annual_country = pd.concat(
+        [
+            annual_country_reported[annual_country_reported["flow"] == "Import"].copy(),
+            compute_mirror_exports(df_cont),
+        ],
+    ignore_index=True
+    )
+
     add_table(tables, "annual_country_trade.csv", annual_country)
+
 
     years = [2020, 2024]
     add_figure(
